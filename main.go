@@ -25,11 +25,11 @@ import (
 
 func main() {
 	// Add routes to the global handler
-	goji.Get("/", Root)
+	goji.Get("/greets", Root)
 	// Fully backwards compatible with net/http's Handlers
-	goji.Get("/greets", http.RedirectHandler("/", 301))
+	goji.Get("/", http.RedirectHandler("/greets", 301))
 	// Use your favorite HTTP verbs
-	goji.Post("/greets", NewGreet)
+	goji.Post("/greet", NewGreet)
 	// Use Sinatra-style patterns in your URLs
 	goji.Get("/users/:name", GetUser)
 	// Goji also supports regular expressions with named capture groups.
