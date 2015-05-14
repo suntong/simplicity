@@ -38,7 +38,7 @@ func main() {
 	// Middleware can be used to inject behavior into your app. The
 	// middleware for this application are defined in middleware.go, but you
 	// can put them wherever you like.
-	goji.Use(PlainText)
+	// goji.Use(PlainText)
 
 	// If the patterns ends with "/*", the path is treated as a prefix, and
 	// can be used to implement sub-routes.
