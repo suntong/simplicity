@@ -27,7 +27,7 @@ func main() {
 	// Add routes to the global handler
 	goji.Get("/greets", Root)
 	// Fully backwards compatible with net/http's Handlers
-	goji.Get("/", http.RedirectHandler("/greets", 301))
+	//goji.Get("/", http.RedirectHandler("/greets", 301))
 	// Use your favorite HTTP verbs
 	goji.Post("/greet", NewGreet)
 	// Use Sinatra-style patterns in your URLs
@@ -68,6 +68,8 @@ func main() {
 
 	// Sometimes requests take a long time.
 	goji.Get("/waitforit", WaitForIt)
+
+	goji.Handle("/*", http.FileServer(http.Dir("www")))
 
 	// Call Serve() at the bottom of your main() function, and it'll take
 	// care of everything else for you, including binding to a socket (with
