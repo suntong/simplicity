@@ -24,6 +24,9 @@ import (
 // Note: the code below cuts a lot of corners to make the example app simple.
 
 func main() {
+
+  cf := ConfigGet()
+
 	// Add routes to the global handler
 	goji.Get("/greets", Root)
 	// Fully backwards compatible with net/http's Handlers
@@ -69,7 +72,7 @@ func main() {
 	// Sometimes requests take a long time.
 	goji.Get("/waitforit", WaitForIt)
 
-	goji.Handle("/*", http.FileServer(http.Dir("www")))
+	goji.Handle("/*", http.FileServer(http.Dir(cf.Webapp.Path)))
 
 	// Call Serve() at the bottom of your main() function, and it'll take
 	// care of everything else for you, including binding to a socket (with
