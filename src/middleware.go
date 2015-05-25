@@ -17,9 +17,6 @@ func PlainText(h http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
-// Nobody will ever guess this!
-const Password = "admin:admin"
-
 // SuperSecure is HTTP Basic Auth middleware for super-secret admin page. Shhhh!
 func SuperSecure(c *web.C, h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +27,7 @@ func SuperSecure(c *web.C, h http.Handler) http.Handler {
 		}
 
 		password, err := base64.StdEncoding.DecodeString(auth[6:])
-		if err != nil || string(password) != Password {
+		if err != nil || string(password) != cf.Webapp.Credential {
 			pleaseAuth(w)
 			return
 		}

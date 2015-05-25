@@ -1,10 +1,19 @@
-// Command example is a sample application built with Goji. Its goal is to give
-// you a taste for what Goji looks like in the real world by artificially using
-// all of its features.
-//
-// In particular, this is a complete working site for gritter.com, a site where
-// users can post 140-character "greets". Any resemblance to real websites,
-// alive or dead, is purely coincidental.
+////////////////////////////////////////////////////////////////////////////
+// Porgram: Simplicity
+// Purpose: Simple yet fully-functional GO web application
+// Authors: Tong Sun (c) 2015, All rights reserved
+////////////////////////////////////////////////////////////////////////////
+
+/*
+
+To build a simple Go sample application, with as less requirement as possible.
+
+It is build on top of Goji example, artificially using all of its features.
+
+It also depends on some other fundamental modules like toml for configuration.
+
+*/
+
 package main
 
 import (
@@ -21,11 +30,22 @@ import (
 	"github.com/zenazn/goji/web/middleware"
 )
 
+////////////////////////////////////////////////////////////////////////////
+// Constant and data type/structure definitions
+
+
+////////////////////////////////////////////////////////////////////////////
+// Global variables definitions
+
+var cf *Config
+
 // Note: the code below cuts a lot of corners to make the example app simple.
 
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Function main
 func main() {
 
-  cf := ConfigGet()
+	cf = ConfigGet()
 
 	// Add routes to the global handler
 	goji.Get("/greets", Root)
@@ -81,6 +101,9 @@ func main() {
 	// production.
 	goji.Serve()
 }
+
+////////////////////////////////////////////////////////////////////////////
+// Function definitions
 
 // Root route (GET "/"). Print a list of greets.
 func Root(w http.ResponseWriter, r *http.Request) {

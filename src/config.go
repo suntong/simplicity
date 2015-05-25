@@ -47,7 +47,8 @@ type Config struct {
 
 	// [Webapp]
 	Webapp struct {
-		Path string
+		Path       string
+		Credential string
 	}
 }
 
