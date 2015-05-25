@@ -1,1 +1,1 @@
-go build -v -o ../simplicity
+go build -v -o ../simplicity.exe
