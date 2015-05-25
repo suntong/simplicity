@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 // Porgram: config.go
-// Purpose: Go application configuration solution 
+// Purpose: Go application configuration solution
 // Authors: Tong Sun (c) 2015, All rights reserved
 ////////////////////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@
 
 /*
 
-Application configuration that satisfies: 
+Application configuration that satisfies:
 
 - Have a set of default values defined in the program
 - Variables defined in the config file will override them
@@ -23,9 +23,9 @@ package main
 
 import (
 	"errors"
-  "flag"
+	"flag"
 	"fmt"
-  "log"
+	"log"
 	"os"
 	"runtime"
 
@@ -63,27 +63,27 @@ func ConfigGet() *Config {
 	var err error
 	var cf *Config = NewConfig()
 
-  // set default values defined in the program
-  cf.ConfigFromFlag()
-  //log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
-  
-  // Load config file, from flag or env (if specified)
+	// set default values defined in the program
+	cf.ConfigFromFlag()
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+
+	// Load config file, from flag or env (if specified)
 	_, err = cf.ConfigFromFile(*configFile, os.Getenv("APPCONFIG"))
 	if err != nil {
 		log.Fatal(err)
 	}
-  //log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
 
-  // Override values from command line flags
-  cf.ConfigToFlag()
+	// Override values from command line flags
+	cf.ConfigToFlag()
 	flag.Usage = usage
-  flag.Parse()
-  cf.ConfigFromFlag()
-  //log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+	flag.Parse()
+	cf.ConfigFromFlag()
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
 
-  cf.ConfigApply()
-  
-  return cf
+	cf.ConfigApply()
+
+	return cf
 }
 
 func NewConfig() *Config {
@@ -111,13 +111,13 @@ func (cf *Config) ConfigFromFile(confFile string, confEnv string) (*Config, erro
 }
 
 func (cf *Config) ConfigFromFlag() {
-  cf.Bind = *bind
-  cf.MaxProcs = *maxProcs
+	cf.Bind = *bind
+	cf.MaxProcs = *maxProcs
 }
 
 func (cf *Config) ConfigToFlag() {
-  *bind = cf.Bind 
-  *maxProcs = cf.MaxProcs 
+	*bind = cf.Bind
+	*maxProcs = cf.MaxProcs
 }
 
 func (cf *Config) ConfigApply() {
@@ -126,4 +126,3 @@ func (cf *Config) ConfigApply() {
 	}
 	runtime.GOMAXPROCS(cf.MaxProcs)
 }
-
