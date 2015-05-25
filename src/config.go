@@ -8,6 +8,9 @@
 
 /*
 
+Based on https://github.com/pkieltyka/godo-app/blob/master/config.go
+by Peter Kieltyka. Enhanced so that,
+
 Application configuration that satisfies:
 
 - Have a set of default values defined in the program
@@ -35,14 +38,12 @@ import (
 var (
 	configFile = flag.String("Conf", "simplicity.conf", "path to config file")
 
-	bind     = flag.String("Bind", "0.0.0.0:3333", "<addr>:<port> to bind HTTP server")
 	maxProcs = flag.Int("MaxProcs", -1, "GOMAXPROCS, default is NumCpu()")
 )
 
 var ErrNoConfigFile = errors.New("No configuration file specified.")
 
 type Config struct {
-	Bind     string
 	MaxProcs int
 
 	// [Webapp]
@@ -66,21 +67,21 @@ func ConfigGet() *Config {
 
 	// set default values defined in the program
 	cf.ConfigFromFlag()
-	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	// Load config file, from flag or env (if specified)
 	_, err = cf.ConfigFromFile(*configFile, os.Getenv("APPCONFIG"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	// Override values from command line flags
 	cf.ConfigToFlag()
 	flag.Usage = usage
 	flag.Parse()
 	cf.ConfigFromFlag()
-	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Bind, cf.Webapp.Path)
+	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	cf.ConfigApply()
 
@@ -112,12 +113,10 @@ func (cf *Config) ConfigFromFile(confFile string, confEnv string) (*Config, erro
 }
 
 func (cf *Config) ConfigFromFlag() {
-	cf.Bind = *bind
 	cf.MaxProcs = *maxProcs
 }
 
 func (cf *Config) ConfigToFlag() {
-	*bind = cf.Bind
 	*maxProcs = cf.MaxProcs
 }
 
