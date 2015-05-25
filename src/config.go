@@ -36,7 +36,7 @@ import (
 )
 
 var (
-	configExt = flag.String("Ext", ".conf", "config file extension.\n   The actual config file will be Args[0] plus this extension.")
+	configFile = flag.String("Conf", "simplicity.conf", "path to config file")
 
 	maxProcs = flag.Int("MaxProcs", -1, "GOMAXPROCS, default is NumCpu()")
 )
@@ -70,7 +70,7 @@ func ConfigGet() *Config {
 	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	// Load config file, from flag or env (if specified)
-	_, err = cf.ConfigFromFile(os.Args[0]+*configExt, os.Getenv("APPCONFIG"))
+	_, err = cf.ConfigFromFile(*configFile, os.Getenv("APPCONFIG"))
 	if err != nil {
 		log.Fatal(err)
 	}
