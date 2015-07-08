@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <title>Multiple Checkbox Select/Deselect - DEMO</title>
+    <STYLE>body,input{font-family:Calibri,Arial;margin:0px}h1{margin:0 0 0 20px}html,body,#container{height:100%}body>#container{height:auto;min-height:100%}#header{height:50px;background-color:#ddd;border-bottom:1px solid #aaa;width:100%}#footer{font-size:12px;clear:both;position:relative;z-index:10;height:3em;margin-top:-3em;text-align:center}table{width:300px;border:1px solid;border-collapse:collapse;margin:0 0 0 20px;}th{background-color:#3e6db0;color:#fff;padding:5px}</STYLE>
+  </head>
+
+  <body>
+
+    <h2>Multiple Checkbox Select/Deselect - DEMO</h2>
+
+    <table border="1">
+      <tbody>
+	<tr>
+          <th>
+            <input type="checkbox" id="selectall">
+          </th>
+          <th>Cell phone</th>
+          <th>Rating</th>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="checkbox" class="case" name="case" value="1">
+          </td>
+          <td>BlackBerry Bold 9650</td>
+          <td>2/5</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="checkbox" class="case" name="case" value="2">
+          </td>
+          <td>Samsung Galaxy</td>
+          <td>3.5/5</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="checkbox" class="case" name="case" value="3">
+          </td>
+          <td>Droid X</td>
+          <td>4.5/5</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="checkbox" class="case" name="case" value="4">
+          </td>
+          <td>HTC Desire</td>
+          <td>3/5</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="checkbox" class="case" name="case" value="5">
+          </td>
+          <td>Apple iPhone 4</td>
+          <td>5/5</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      $(function () {
+      $("#selectall").click(function () {
+      $('.case').attr('checked', this.checked);
+      });
+      $(".case").click(function () {
+      if ($(".case").length == $(".case:checked").length) {
+      $("#selectall").attr("checked", "checked");
+      } else {
+      $("#selectall").removeAttr("checked");
+      }
+      });
+      });
+    </script>
+    
+  </body>
+</html>
