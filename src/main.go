@@ -20,6 +20,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"os/exec"
 	"regexp"
 	"strconv"
 	"time"
@@ -33,7 +35,6 @@ import (
 ////////////////////////////////////////////////////////////////////////////
 // Constant and data type/structure definitions
 
-
 ////////////////////////////////////////////////////////////////////////////
 // Global variables definitions
 
@@ -46,6 +47,9 @@ var cf *Config
 func main() {
 
 	cf = ConfigGet()
+
+	//goji.Post("/logger", Logger1)
+	goji.Post("/logger", Logger2)
 
 	// Add routes to the global handler
 	goji.Get("/greets", Root)
@@ -104,6 +108,24 @@ func main() {
 
 ////////////////////////////////////////////////////////////////////////////
 // Function definitions
+
+// Logger1 logs to console
+func Logger1(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	fmt.Println(r.Form["case"])
+}
+
+// Logger2 logs to system syslog
+func Logger2(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	cmd := "logger"
+	for _, v := range r.Form["case"] {
+		args := []string{"Processing", v}
+		if err := exec.Command(cmd, args...).Run(); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
+	}
+}
 
 // Root route (GET "/"). Print a list of greets.
 func Root(w http.ResponseWriter, r *http.Request) {
