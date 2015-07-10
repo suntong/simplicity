@@ -49,6 +49,7 @@ type Config struct {
 	// [Webapp]
 	Webapp struct {
 		Path       string
+		PathAdmin  string
 		Credential string
 	}
 }

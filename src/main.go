@@ -83,8 +83,9 @@ func main() {
 	// password prompt to users of the admin endpoints.
 	admin.Use(SuperSecure)
 
-	admin.Get("/", AdminRoot)
+	//admin.Get("/", AdminRoot)
 	admin.Get("/finances", AdminFinances)
+	admin.Handle("/*", http.FileServer(http.Dir(cf.Webapp.PathAdmin)))
 
 	// Goji's routing, like Sinatra's, is exact: no effort is made to
 	// normalize trailing slashes.
