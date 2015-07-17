@@ -1,0 +1,191 @@
+Frameworks, Frameworks, Frameworks
+Go based web framework from the front end to the back
+18:30 23 Jul 2015
+Tags: go, web, framework
+
+Antonio Sun
+System Programmer
+https://github.com/suntong001/simplicity
+
+* Frameworks, Frameworks, Frameworks
+
+.image framework-construction.jpg
+
+Thight schedule, so please leave your questions to the end
+
+* Go Based MEAN Stack Alternative
+
+When talking about choosing the right frameworks, the first question comes to the mind should be: "is the grass greener on the other side of the fence"
+
+- [[https://goo.gl/80Hg8C][Node.js vs Golang: Battle of the Next-Gen Languages]]
+- [[https://goo.gl/kAUdNY][Farewell Node.js]]
+- [[https://goo.gl/DQhfqJ][The MEAN stack is doomed]]
+
+* The Problem
+
+- The Go default Http Server (`ListenAndServe`), although powerful, but still too simple
+# , `http.ListenAndServe(":8123", nil)`
+- The Martini framework is way too heavy
+
+* Goal
+
+Looking for a minimum set that
+
+- contains least amount of packages to install and *learn*
+- yet sufficient enough that covers most features
+- basically 20% of the code doing 80% of the tasks
+- still, provides a solid base that aligns well for expansion
+
+#But
+#
+#- such choice will always be biased, and 
+#- will always be influenced by how wide/narrow the picker's knowledge is
+#- especially when he knows nothing about Go based frameworks and
+#- nothing about front end frameworks neither!
+
+So be anticipated to get less
+
+* Go Based Frameworks
+
+- [[https://github.com/robfig/revel][revel]]
+- [[https://github.com/astaxie/beego][beego]]
+- [[https://github.com/codegangsta/martini][martini]]
+- [[https://github.com/zenazn/goji][goji]]
+- Many others like Gin, gocraft/web, and other components like Gorilla, mgo, etc
+
+Project Objective: Content Delivery 
+mostly statics with only little user interaction
+
+#* Criteria
+
+
+* Content Delivery System with Goji
+
+Goji
+
+- minimalistic microframework
+- philosophy: 1st simplicity and 2nd composability
+
+A [[https://github.com/suntong001/simplicity][simple sample code]] that shows
+
+- how to set up routes
+- how to add custom middlewares
+- no sessions handling via Gorilla
+- demo works without any dependency on any databases
+- serves homepage and static content from root
+- user interaction via special urls 
+- and password protected back-ends handling as well
+
+* Goji
+
+- set up routes
+
+	// Add routes to the global handler
+	goji.Get("/greets", Root)
+	goji.Post("/greet", NewGreet)
+
+- add custom middlewares
+
+	// ... middleware allows you to cut down on the repetition by
+	// eliminating the shared, already-matched prefix.
+	admin.Use(middleware.SubRouter)
+	admin.Use(SuperSecure)
+
+- serves homepage and static content from root
+
+	goji.Handle("/*", http.FileServer(http.Dir(cf.Webapp.Path)))
+
+* New hat in the ring
+
+Next time, check out
+
+Echo
+http://echo.labstack.com/
+A fast and unfancy micro web framework for Golang.
+
+.image Echo_micro_web_framework.png
+
+* Next, a good Go configuration system
+
+- Is TOML and/or Viper the only options?
+- Find out them all at [[https://sfxpt.wordpress.com/2015/06/16/providing-options-for-go-applications/][Providing Options for Go Applications]]
+
+It's better to have a configuration system that,
+
+- Define default values within the program so that you don't need to define them again in TOML file
+- Override values defined in the program from TOML config file
+- Override values defined in config file from env var or command line
+
+
+* multiconfig
+
+how to use [[https://github.com/koding/multiconfig][multiconfig]]:
+
+    func main() {
+      m := multiconfig.NewWithPath("config.toml") // supports TOML and JSON
+
+      // Get an empty struct for your configuration
+      serverConf := new(Server)
+
+      // Populated the serverConf struct
+      m.MustLoad(serverConf) // Check for error
+
+      fmt.Println("After Loading: ")
+      fmt.Printf("%+vn", serverConf)
+     
+      if serverConf.Enabled {
+         ...
+      }
+    }
+
+That's pretty much everything you need to do, besides [[https://sfxpt.wordpress.com/2015/06/19/beyond-toml-the-gos-de-facto-config-file/][providing the TOML file and mapping it into Go]].
+
+* Viper
+
+how to use [[https://github.com/spf13/viper][viper]] and [[https://github.com/spf13/cobra][cobra]] together to handle options:
+
+    flags := mainCmd.Flags()
+
+    flags.Bool("debug", false, "Turn on debugging.")
+    flags.String("addr", "localhost:5002", "Address of the service")
+    flags.String("smtp-addr", "localhost:25", "Address of the SMTP server")
+    flags.String("smtp-user", "", "User to authenticate with the SMTP server")
+    flags.String("smtp-password", "", "Password to authenticate with the SMTP server")
+    flags.String("email-from", "noreply@example.com", "The from email address.")
+
+    viper.BindPFlag("debug", flags.Lookup("debug"))
+    viper.BindPFlag("addr", flags.Lookup("addr"))
+    viper.BindPFlag("smtp_addr", flags.Lookup("smtp-addr"))
+    viper.BindPFlag("smtp_user", flags.Lookup("smtp-user"))
+    viper.BindPFlag("smtp_password", flags.Lookup("smtp-password"))
+    viper.BindPFlag("email_from", flags.Lookup("email-from"))
+
+You need that extra `BindPFlag` step for viper and cobra to work together.
+
+
+* Front End Frameworks That Work Well with Go
+
+- AngularJs + Go?
+- Bootstrap from Twitter?
+- [[http://facebook.github.io/react/][ReactJS]] from Facebook?
+- or [[https://www.google.com/design/spec/material-design/introduction.html][Material Design]] from Google?
+- and how about Declarative UI?
+
+which front end framework gives the best leverage to the Go back end?
+
+* Google's Material Design
+
+.image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0Bx4BSt6jniD7UXpQYWltVjNPWXc/whatismaterial_environment_3d.png 200 _
+
+Combined shadow from key and ambient lights
+
+.image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQsNnVmbTNMUF9DR0U/whatismaterial_environment_shadow3.png  200 _
+
+
+* Declarative UI
+
+[[http://callemall.github.io/][MaterialUI]] -- [[http://facebook.github.io/react/][React]] + [[https://www.google.com/design/spec/material-design/introduction.html][Google's Material Design]]. 
+
+.image MaterialUI.png
+
+
