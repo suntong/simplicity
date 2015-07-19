@@ -1,17 +1,21 @@
-Frameworks, Frameworks, Frameworks
-Go based web framework from the front end to the back
+Frameworks, Frameworks, Frameworks  
+Go based web framework from the front end to the back  
 18:30 23 Jul 2015
 Tags: go, web, framework
 
-Antonio Sun
-System Programmer
+Antonio Sun  
+System Programmer  
+https://goo.gl/q0fQmk  
 https://github.com/suntong001/simplicity
+http://go-talks.appspot.com/github.com/suntong001/simplicity/slide/simplicity.slide
 
 * Frameworks, Frameworks, Frameworks
 
 .image framework-construction.jpg
 
-Thight schedule (20 slides in 20 minutes), so please leave your questions to the end
+Tight schedule (20 slides in 20 minutes), so please leave your questions to the end
+
+# Most of the contents covered you've probably already known => go through very quickly without touching any details. It is now..., I shall be able to finish before (+15min).
 
 * Go Based MEAN Stack Alternative
 
@@ -23,13 +27,15 @@ When talking about choosing the right frameworks, the first question comes to th
 
 * The Problem
 
-- The Go default Http Server (`ListenAndServe`), although powerful, but still too simple
-# , `http.ListenAndServe(":8123", nil)`
+- The Go default Http Server, although powerful, but still too simple
+
+    http.ListenAndServe(":8123", nil)
+
 - The Martini framework is way too heavy
 
 * Goal
 
-Looking for a minimum set that
+Looking for a *minimum* set that
 
 - contains least amount of packages to install and *learn*
 - yet sufficient enough that covers most features
@@ -43,7 +49,7 @@ Looking for a minimum set that
 #- especially when he knows nothing about Go based frameworks and
 #- nothing about front end frameworks neither!
 
-So be anticipated to get less
+So anticipate to get _less_
 
 * Go Based Frameworks
 
@@ -53,18 +59,17 @@ So be anticipated to get less
 - [[https://github.com/zenazn/goji][goji]]
 - Many others like Gin, gocraft/web, and other components like Gorilla, mgo, etc
 
-Project Objective: Content Delivery 
+Project Objective: Content Delivery   
 mostly statics with only little user interaction
 
-#* Criteria
-
+# one line blurb about each. To build a CGI-alike system
 
 * Content Delivery System with Goji
 
 Goji
 
 - minimalistic microframework
-- philosophy: 1st simplicity and 2nd composability
+- philosophy: first, simplicity; and second, composability
 
 A [[https://github.com/suntong001/simplicity][simple sample code]] that shows
 
@@ -75,6 +80,8 @@ A [[https://github.com/suntong001/simplicity][simple sample code]] that shows
 - serves homepage and static content from root
 - user interaction via special urls 
 - and password protected back-ends handling as well
+
+# Show a bit how it is done.
 
 * Goji
 
@@ -95,6 +102,8 @@ A [[https://github.com/suntong001/simplicity][simple sample code]] that shows
 
 	goji.Handle("/*", http.FileServer(http.Dir(cf.Webapp.Path)))
 
+# Lesson learned? simple, easy starting, but next time...
+
 * New hat in the ring
 
 Next time, check out
@@ -104,6 +113,8 @@ http://echo.labstack.com/
 A fast and unfancy micro web framework for Golang.
 
 .image Echo_micro_web_framework.png
+
+# The performance graph concludes nicely of the go-based frameworks, move on to something not covered by the framework, into more coding details
 
 * Next, a good Go configuration system
 
@@ -165,17 +176,23 @@ You need that extra `BindPFlag` step for viper and cobra to work together.
 
 * Front End Frameworks That Work Well with Go
 
+# Switching the focus from back-ends to the front-end, which one work well with Go?
+
 - AngularJs + Go?
 - Bootstrap from Twitter?
 - [[http://facebook.github.io/react/][ReactJS]] from Facebook?
 - or [[https://www.google.com/design/spec/material-design/introduction.html][Material Design]] from Google?
 
+# Everything possible, even AngularJs + Go have multiple implementations. What to choose?
+
 Consideration
 
-- which front end framework gives the best leverage to the Go back end?
+- which front end framework gives the best leverage to the Go back-end?
 - Declarative or Imperative UI?
 
 * Initializr
+
+# Easiest to start with
 
 [[http://www.initializr.com/][HTML5 templates generator]] from,
 
@@ -183,8 +200,11 @@ Consideration
 - [[http://verekia.com/initializr/responsive-template][Responsive]]
 - [[http://getbootstrap.com/getting-started/][Bootstrap]]
 
+# but still imperative, need Declarative UI
 
 * Declarative UI - Semantic UI
+
+# Clean and clear, Declarative vs. Imperative => Latex vs. Word, what vs. how, underline & italic
 
 .image semantic-ui.png
 
@@ -192,7 +212,11 @@ Consideration
 - 3000+ Theming Variables, 50+ UI Components
 - Responsively designed, integrates with React, Angular, Meteor, Ember, etc.
 
+# Setup a standard, good or bad?
+
 * Google's Material Design
+
+# Google's way
 
 .image http://superdevresources.com/wp-content/uploads/sites/7/2014/06/material-design-google-design-language.png
 
@@ -206,6 +230,7 @@ Combined shadow from key and ambient lights
 
 .image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQsNnVmbTNMUF9DR0U/whatismaterial_environment_shadow3.png  200 _
 
+# Still imperative, no problem, people still rushing over to the Material Design camp to do the implementation. Guess how many?
 
 * 7 Material Design Web UI Frameworks
 
@@ -219,12 +244,17 @@ Combined shadow from key and ambient lights
 6. MUI CSS Framework
 7. Polymer Project
 
+# The most beautiful and comprehensive one is,
+
 * Material Design UI - Material UI
+
+# How beautiful and elegant it is
 
 [[http://callemall.github.io/][MaterialUI]] -- [[http://facebook.github.io/react/][React]] + [[https://www.google.com/design/spec/material-design/introduction.html][Google's Material Design]]. 
 
-.image MaterialUI.png
-#400 _
+.image MaterialUI.png 
+
+# Can't get it working because of ReactJS, but by all means to use it if you can. My choice
 
 * Material Design UI - Bootstrap Material
 
@@ -232,3 +262,6 @@ Combined shadow from key and ambient lights
 
 (courtesy of http://superdevresources.com/material-design-web-ui-frameworks/)
 https://github.com/FezVrasta/bootstrap-material-design
+http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html
+
+# When I first chose it about 3 months ago, It was still an one-man shown. Now 62 Contributors, 12k stars.
