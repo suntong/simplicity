@@ -11,7 +11,7 @@ https://github.com/suntong001/simplicity
 
 .image framework-construction.jpg
 
-Thight schedule, so please leave your questions to the end
+Thight schedule (20 slides in 20 minutes), so please leave your questions to the end
 
 * Go Based MEAN Stack Alternative
 
@@ -169,11 +169,34 @@ You need that extra `BindPFlag` step for viper and cobra to work together.
 - Bootstrap from Twitter?
 - [[http://facebook.github.io/react/][ReactJS]] from Facebook?
 - or [[https://www.google.com/design/spec/material-design/introduction.html][Material Design]] from Google?
-- and how about Declarative UI?
 
-which front end framework gives the best leverage to the Go back end?
+Consideration
+
+- which front end framework gives the best leverage to the Go back end?
+- Declarative or Imperative UI?
+
+* Initializr
+
+[[http://www.initializr.com/][HTML5 templates generator]] from,
+
+- [[https://github.com/h5bp/html5-boilerplate/blob/v4.3.0/doc/TOC.md][Classic HTML5 Boilerplates]]
+- [[http://verekia.com/initializr/responsive-template][Responsive]]
+- [[http://getbootstrap.com/getting-started/][Bootstrap]]
+
+
+* Declarative UI - Semantic UI
+
+.image semantic-ui.png
+
+- [[http://semantic-ui.com/][Semantic UI]], a development framework that helps create beautiful, responsive layouts using human-friendly HTML
+- 3000+ Theming Variables, 50+ UI Components
+- Responsively designed, integrates with React, Angular, Meteor, Ember, etc.
 
 * Google's Material Design
+
+.image http://superdevresources.com/wp-content/uploads/sites/7/2014/06/material-design-google-design-language.png
+
+* Google's Material Design, Insight
 
 .image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0Bx4BSt6jniD7UXpQYWltVjNPWXc/whatismaterial_environment_3d.png 200 _
 
@@ -182,10 +205,26 @@ Combined shadow from key and ambient lights
 .image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQsNnVmbTNMUF9DR0U/whatismaterial_environment_shadow3.png  200 _
 
 
-* Declarative UI
+* 7 Material Design Web UI Frameworks
+
+[[http://superdevresources.com/material-design-web-ui-frameworks/][Material Design Frameworks for the Web]]
+
+1. Materialize
+2. Material UI
+3. Paper Bootswatch for Bootstrap
+4. Bootstrap Material
+5. Leaf BETA
+6. MUI CSS Framework
+7. Polymer Project
+
+* Material Design UI - Material UI
 
 [[http://callemall.github.io/][MaterialUI]] -- [[http://facebook.github.io/react/][React]] + [[https://www.google.com/design/spec/material-design/introduction.html][Google's Material Design]]. 
 
 .image MaterialUI.png
 
+* Material Design UI - Bootstrap Material
 
+.image http://superdevresources.com/wp-content/uploads/sites/7/2014/11/bootstrap-material-design.png
+
+https://github.com/FezVrasta/bootstrap-material-design
