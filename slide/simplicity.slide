@@ -196,6 +196,8 @@ Consideration
 
 .image http://superdevresources.com/wp-content/uploads/sites/7/2014/06/material-design-google-design-language.png
 
+(courtesy of http://superdevresources.com/material-design-web-ui-frameworks/)
+
 * Google's Material Design, Insight
 
 .image https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0Bx4BSt6jniD7UXpQYWltVjNPWXc/whatismaterial_environment_3d.png 200 _
@@ -222,9 +224,11 @@ Combined shadow from key and ambient lights
 [[http://callemall.github.io/][MaterialUI]] -- [[http://facebook.github.io/react/][React]] + [[https://www.google.com/design/spec/material-design/introduction.html][Google's Material Design]]. 
 
 .image MaterialUI.png
+#400 _
 
 * Material Design UI - Bootstrap Material
 
 .image http://superdevresources.com/wp-content/uploads/sites/7/2014/11/bootstrap-material-design.png
 
+(courtesy of http://superdevresources.com/material-design-web-ui-frameworks/)
 https://github.com/FezVrasta/bootstrap-material-design
