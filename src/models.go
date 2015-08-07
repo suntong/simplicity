@@ -26,8 +26,8 @@ var Greets = []Greet{
 
 // Write out a representation of the greet
 func (g Greet) Write(w io.Writer) {
-	fmt.Fprintf(w, "%s\n@%s at %s\n---\n", g.Message, g.User,
-		g.Time.Format(time.UnixDate))
+	fmt.Fprintf(w, "%s at %s\n  %s\n---\n", g.User,
+		g.Time.Format(time.UnixDate), g.Message)
 }
 
 // A User is a person. It may even be someone you know. Or a rabbit. Hard to say
