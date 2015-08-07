@@ -57,10 +57,11 @@ func main() {
 	//goji.Get("/", http.RedirectHandler("/greets", 301))
 	// Use your favorite HTTP verbs
 	goji.Post("/greet", NewGreet)
+	goji.Get("/greet", NewGreet)
 	// Use Sinatra-style patterns in your URLs
 	goji.Get("/users/:name", GetUser)
 	// Goji also supports regular expressions with named capture groups.
-	goji.Get(regexp.MustCompile(`^/greets/(?P<id>\d+)$`), GetGreet)
+	goji.Get(regexp.MustCompile(`^/g/(?P<id>\d+)$`), GetGreet)
 
 	// Middleware can be used to inject behavior into your app. The
 	// middleware for this application are defined in middleware.go, but you
@@ -150,6 +151,7 @@ func NewGreet(w http.ResponseWriter, r *http.Request) {
 	// is emitted by (e.g.) jQuery.param.
 	r.ParseForm()
 	err := param.Parse(r.Form, &greet)
+	greet.Time = time.Now()
 
 	if err != nil || len(greet.Message) > cf.MaxLen {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -158,8 +160,8 @@ func NewGreet(w http.ResponseWriter, r *http.Request) {
 
 	// We make no effort to prevent races against other insertions.
 	Greets = append(Greets, greet)
-	url := fmt.Sprintf("/greets/%d", len(Greets)-1)
-	http.Redirect(w, r, url, http.StatusCreated)
+	url := fmt.Sprintf("/g/%d", len(Greets)-1)
+	http.Redirect(w, r, url, http.StatusFound)
 }
 
 // GetUser finds a given user and her greets (GET "/user/:name")
