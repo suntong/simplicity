@@ -1,4 +1,5 @@
 # Application configuration
+MaxLen		= 512
 #MaxProcs	= 1
 
 [Webapp]

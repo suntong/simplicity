@@ -28,6 +28,7 @@ var (
 )
 
 type Config struct {
+	MaxLen   int
 	MaxProcs int
 
 	// [Webapp]

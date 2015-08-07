@@ -151,7 +151,7 @@ func NewGreet(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	err := param.Parse(r.Form, &greet)
 
-	if err != nil || len(greet.Message) > 140 {
+	if err != nil || len(greet.Message) > cf.MaxLen {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
