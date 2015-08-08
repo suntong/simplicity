@@ -14,15 +14,15 @@ type Msg struct {
 	Time    time.Time `param:"time"`
 }
 
-// Store all our msgs in a big list in memory, because, let's be honest, who's
-// actually going to use a service that only allows you to post 140-character
-// messages?
-var Msgs = []Msg{
+// Store all our msgs in a big list in memory
+var Msgs0 = []Msg{
 	{"carl", "Welcome to Msger!", time.Now()},
 	{"alice", "Wanna know a secret?", time.Now()},
 	{"bob", "Okay!", time.Now()},
 	{"eve", "I'm listening...", time.Now()},
 }
+
+var Msgs = Msgs0
 
 // Write out a representation of the msg
 func (g Msg) Write(w io.Writer) {

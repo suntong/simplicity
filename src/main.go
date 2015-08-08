@@ -86,6 +86,7 @@ func main() {
 
 	//admin.Get("/", AdminRoot)
 	admin.Get("/finances", AdminFinances)
+	admin.Get("/clearmsg", ClearMsg)
 	admin.Handle("/*", http.FileServer(http.Dir(cf.Webapp.PathAdmin)))
 
 	// Goji's routing, like Sinatra's, is exact: no effort is made to
@@ -222,6 +223,13 @@ func AdminRoot(w http.ResponseWriter, r *http.Request) {
 // (GET "/admin/finances")
 func AdminFinances(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Msger\n======\n\nWe're broke! :(\n")
+}
+
+// ClearMsg would clear all the submitted msgs
+// (GET "/admin/clearmsg")
+func ClearMsg(w http.ResponseWriter, r *http.Request) {
+	Msgs = Msgs0
+	io.WriteString(w, "Msger\n======\n\nAll cleared! :)\n")
 }
 
 // NotFound is a 404 handler.
