@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 // Porgram: config.go
-// Purpose: Go application configuration solution
+// Purpose: Go application configuration
 // Authors: Tong Sun (c) 2015, All rights reserved
 ////////////////////////////////////////////////////////////////////////////
 
@@ -8,12 +8,6 @@
 
 Based on https://github.com/pkieltyka/godo-app/blob/master/config.go
 by Peter Kieltyka. Enhanced so that,
-
-Application configuration that satisfies:
-
-- Have a set of default values defined in the program
-- Variables defined in the config file will override them
-- Variables passed from the command line takes the highest priority
 
 */
 
@@ -47,22 +41,14 @@ func ConfigGet() *Config {
 	var err error
 	var cf *Config = NewConfig()
 
-	// set default values defined in the program
-	cf.ConfigFromFlag()
-	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
+	flag.Usage = Usage
+	flag.Parse()
 
 	// Load config file, from flag or env (if specified)
 	_, err = cf.ConfigFromFile(Opts.configFile, os.Getenv("APPCONFIG"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
-
-	// Override values from command line flags
-	cf.ConfigToFlag()
-	flag.Usage = Usage
-	flag.Parse()
-	cf.ConfigFromFlag()
 	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	cf.ConfigApply()
@@ -92,14 +78,6 @@ func (cf *Config) ConfigFromFile(confFile string, confEnv string) (*Config, erro
 		return nil, err
 	}
 	return cf, nil
-}
-
-func (cf *Config) ConfigFromFlag() {
-	cf.MaxProcs = Opts.maxProcs
-}
-
-func (cf *Config) ConfigToFlag() {
-	Opts.maxProcs = cf.MaxProcs
 }
 
 func (cf *Config) ConfigApply() {
