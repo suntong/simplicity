@@ -52,16 +52,16 @@ func main() {
 	goji.Post("/logger", Logger2)
 
 	// Add routes to the global handler
-	goji.Get("/greets", Root)
+	goji.Get("/msgs", Root)
 	// Fully backwards compatible with net/http's Handlers
-	//goji.Get("/", http.RedirectHandler("/greets", 301))
+	//goji.Get("/", http.RedirectHandler("/msgs", 301))
 	// Use your favorite HTTP verbs
-	goji.Post("/greet", NewGreet)
-	goji.Get("/greet", NewGreet)
+	goji.Post("/msg", NewMsg)
+	goji.Get("/msg", NewMsg)
 	// Use Sinatra-style patterns in your URLs
 	goji.Get("/users/:name", GetUser)
 	// Goji also supports regular expressions with named capture groups.
-	goji.Get(regexp.MustCompile(`^/g/(?P<id>\d+)$`), GetGreet)
+	goji.Get(regexp.MustCompile(`^/m/(?P<id>\d+)$`), GetMsg)
 
 	// Middleware can be used to inject behavior into your app. The
 	// middleware for this application are defined in middleware.go, but you
@@ -129,44 +129,44 @@ func Logger2(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Root route (GET "/"). Print a list of greets.
+// Root route (GET "/"). Print a list of msgs.
 func Root(w http.ResponseWriter, r *http.Request) {
 	// In the real world you'd probably use a template or something.
-	io.WriteString(w, "Gritter\n======\n\n")
-	for i := len(Greets) - 1; i >= 0; i-- {
-		Greets[i].Write(w)
+	io.WriteString(w, "Msger\n======\n\n")
+	for i := len(Msgs) - 1; i >= 0; i-- {
+		Msgs[i].Write(w)
 	}
 }
 
-// NewGreet creates a new greet (POST "/greets"). Creates a greet and redirects
-// you to the created greet.
+// NewMsg creates a new msg (POST "/msgs"). Creates a msg and redirects
+// you to the created msg.
 //
-// To post a new greet, try this at a shell:
+// To post a new msg, try this at a shell:
 // $ now=$(date +'%Y-%m-%mT%H:%M:%SZ')
-// $ curl -i -d "user=carl&message=Hello+World&time=$now" localhost:8000/greets
-func NewGreet(w http.ResponseWriter, r *http.Request) {
-	var greet Greet
+// $ curl -i -d "user=carl&message=Hello+World&time=$now" localhost:8000/msgs
+func NewMsg(w http.ResponseWriter, r *http.Request) {
+	var msg Msg
 
-	// Parse the POST body into the Greet struct. The format is the same as
+	// Parse the POST body into the Msg struct. The format is the same as
 	// is emitted by (e.g.) jQuery.param.
 	r.ParseForm()
-	err := param.Parse(r.Form, &greet)
-	greet.Time = time.Now()
+	err := param.Parse(r.Form, &msg)
+	msg.Time = time.Now()
 
-	if err != nil || len(greet.Message) > cf.MaxLen {
+	if err != nil || len(msg.Message) > cf.MaxLen {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	// We make no effort to prevent races against other insertions.
-	Greets = append(Greets, greet)
-	url := fmt.Sprintf("/g/%d", len(Greets)-1)
+	Msgs = append(Msgs, msg)
+	url := fmt.Sprintf("/m/%d", len(Msgs)-1)
 	http.Redirect(w, r, url, http.StatusFound)
 }
 
-// GetUser finds a given user and her greets (GET "/user/:name")
+// GetUser finds a given user and her msgs (GET "/user/:name")
 func GetUser(c web.C, w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Gritter\n======\n\n")
+	io.WriteString(w, "Msger\n======\n\n")
 	handle := c.URLParams["name"]
 	user, ok := Users[handle]
 	if !ok {
@@ -176,27 +176,27 @@ func GetUser(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	user.Write(w, handle)
 
-	io.WriteString(w, "\nGreets:\n")
-	for i := len(Greets) - 1; i >= 0; i-- {
-		if Greets[i].User == handle {
-			Greets[i].Write(w)
+	io.WriteString(w, "\nMsgs:\n")
+	for i := len(Msgs) - 1; i >= 0; i-- {
+		if Msgs[i].User == handle {
+			Msgs[i].Write(w)
 		}
 	}
 }
 
-// GetGreet finds a particular greet by ID (GET "/greets/\d+"). Does no bounds
+// GetMsg finds a particular msg by ID (GET "/msgs/\d+"). Does no bounds
 // checking, so will probably panic.
-func GetGreet(c web.C, w http.ResponseWriter, r *http.Request) {
+func GetMsg(c web.C, w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(c.URLParams["id"])
 	if err != nil {
 		http.Error(w, http.StatusText(404), 404)
 		return
 	}
 	// This will panic if id is too big. Try it out!
-	greet := Greets[id]
+	msg := Msgs[id]
 
-	io.WriteString(w, "Gritter\n======\n\n")
-	greet.Write(w)
+	io.WriteString(w, "Msger\n======\n\n")
+	msg.Write(w)
 }
 
 // WaitForIt is a particularly slow handler (GET "/waitforit"). Try loading this
@@ -215,13 +215,13 @@ func WaitForIt(w http.ResponseWriter, r *http.Request) {
 
 // AdminRoot is root (GET "/admin/root"). Much secret. Very administrate. Wow.
 func AdminRoot(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Gritter\n======\n\nSuper secret admin page!\n")
+	io.WriteString(w, "Msger\n======\n\nSuper secret admin page!\n")
 }
 
 // AdminFinances would answer the question 'How are we doing?'
 // (GET "/admin/finances")
 func AdminFinances(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Gritter\n======\n\nWe're broke! :(\n")
+	io.WriteString(w, "Msger\n======\n\nWe're broke! :(\n")
 }
 
 // NotFound is a 404 handler.

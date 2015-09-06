@@ -6,26 +6,26 @@ import (
 	"time"
 )
 
-// A Greet is a 140-character micro-blogpost that has no resemblance whatsoever
+// A Msg is a 140-character micro-blogpost that has no resemblance whatsoever
 // to the noise a bird makes.
-type Greet struct {
+type Msg struct {
 	User    string    `param:"user"`
 	Message string    `param:"message"`
 	Time    time.Time `param:"time"`
 }
 
-// Store all our greets in a big list in memory, because, let's be honest, who's
+// Store all our msgs in a big list in memory, because, let's be honest, who's
 // actually going to use a service that only allows you to post 140-character
 // messages?
-var Greets = []Greet{
-	{"carl", "Welcome to Gritter!", time.Now()},
+var Msgs = []Msg{
+	{"carl", "Welcome to Msger!", time.Now()},
 	{"alice", "Wanna know a secret?", time.Now()},
 	{"bob", "Okay!", time.Now()},
 	{"eve", "I'm listening...", time.Now()},
 }
 
-// Write out a representation of the greet
-func (g Greet) Write(w io.Writer) {
+// Write out a representation of the msg
+func (g Msg) Write(w io.Writer) {
 	fmt.Fprintf(w, "%s at %s\n  %s\n---\n", g.User,
 		g.Time.Format(time.UnixDate), g.Message)
 }

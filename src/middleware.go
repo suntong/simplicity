@@ -38,7 +38,7 @@ func SuperSecure(c *web.C, h http.Handler) http.Handler {
 }
 
 func pleaseAuth(w http.ResponseWriter) {
-	w.Header().Set("WWW-Authenticate", `Basic realm="Gritter"`)
+	w.Header().Set("WWW-Authenticate", `Basic realm="Msger"`)
 	w.WriteHeader(http.StatusUnauthorized)
 	w.Write([]byte("Go away!\n"))
 }

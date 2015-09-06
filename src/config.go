@@ -7,7 +7,7 @@
 /*
 
 Based on https://github.com/pkieltyka/godo-app/blob/master/config.go
-by Peter Kieltyka. Enhanced so that,
+by Peter Kieltyka.
 
 */
 
