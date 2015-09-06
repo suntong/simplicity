@@ -4,8 +4,6 @@
 // Authors: Tong Sun (c) 2015, All rights reserved
 ////////////////////////////////////////////////////////////////////////////
 
-// Style: gofmt -tabs=false -tabwidth=2 -w
-
 /*
 
 Based on https://github.com/pkieltyka/godo-app/blob/master/config.go
@@ -17,9 +15,6 @@ Application configuration that satisfies:
 - Variables defined in the config file will override them
 - Variables passed from the command line takes the highest priority
 
-Next time:
- Maybe http://spf13.com/project/viper from hugo is a better option.
-
 */
 
 package main
@@ -27,18 +22,11 @@ package main
 import (
 	"errors"
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"runtime"
 
 	"github.com/BurntSushi/toml"
-)
-
-var (
-	configFile = flag.String("Conf", "simplicity.conf", "path to config file")
-
-	maxProcs = flag.Int("MaxProcs", -1, "GOMAXPROCS, default is NumCpu()")
 )
 
 var ErrNoConfigFile = errors.New("No configuration file specified.")
@@ -55,14 +43,6 @@ type Config struct {
 	}
 }
 
-func usage() {
-	// Fprintf allows us to print to a specifed file handle or stream
-	fmt.Fprintf(os.Stderr, "\nUsage: %s [flags ...]\n\n",
-		os.Args[0])
-	flag.PrintDefaults()
-	os.Exit(0)
-}
-
 func ConfigGet() *Config {
 	var err error
 	var cf *Config = NewConfig()
@@ -72,7 +52,7 @@ func ConfigGet() *Config {
 	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
 
 	// Load config file, from flag or env (if specified)
-	_, err = cf.ConfigFromFile(*configFile, os.Getenv("APPCONFIG"))
+	_, err = cf.ConfigFromFile(Opts.configFile, os.Getenv("APPCONFIG"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,7 +60,7 @@ func ConfigGet() *Config {
 
 	// Override values from command line flags
 	cf.ConfigToFlag()
-	flag.Usage = usage
+	flag.Usage = Usage
 	flag.Parse()
 	cf.ConfigFromFlag()
 	//log.Printf("P: %d, B: '%s', F: '%s'\n", cf.MaxProcs, cf.Webapp.Path)
@@ -115,11 +95,11 @@ func (cf *Config) ConfigFromFile(confFile string, confEnv string) (*Config, erro
 }
 
 func (cf *Config) ConfigFromFlag() {
-	cf.MaxProcs = *maxProcs
+	cf.MaxProcs = Opts.maxProcs
 }
 
 func (cf *Config) ConfigToFlag() {
-	*maxProcs = cf.MaxProcs
+	Opts.maxProcs = cf.MaxProcs
 }
 
 func (cf *Config) ConfigApply() {

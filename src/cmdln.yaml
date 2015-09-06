@@ -1,0 +1,37 @@
+# program name, name for the executable
+ProgramName: simplicity
+
+# package name
+PackageName: main
+
+# Name of the structure to hold the values for/from commandline
+StructName: Options
+# The actual variable that hold the commandline paramter values
+StructVar: Opts
+
+Options:
+  - Name: configFile
+    Type: string
+    Flag: Conf
+    Value: '"simplicity.conf"'
+    Usage: "path to config `file`"
+
+  - Name: maxProcs
+    Type: int
+    Flag: MaxProcs
+    Value: -1
+    Usage: "GOMAXPROCS, default is NumCpu()"
+
+  - Name: debug
+    Type: int
+    Flag: debug
+    Value: 0
+    Usage: "debugging `level`"
+
+# Whether to use the USAGE_SUMMARY in Usage help
+UsageSummary: ""
+
+UsageLead: "\\nUsage:\\n %s [flags ...] \\n\\nFlags:\\n\\n"
+
+UsageEnd: "\\n"
+
